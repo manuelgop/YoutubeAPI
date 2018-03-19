@@ -31,18 +31,28 @@ function mainVid(id) {
 function resultsLoop(data) {
     $.each(data.items, function(i, item){
         var thumb = item.snippet.thumbnails.medium.url;
+        var tittle = item.snippet.title;
+        var desc = item.snippet.description.substring(0,100);
+        var vid = item.snippet.resourceId.videoId;
+        $('main').append(`
+        <article class="item" data-key="${vid}">
 
-        $('main').html(`
-        <article>
         <img src="${thumb}" alt="" class="thumb">
         <div class="details">
-            <h4>Tittle</h4>
-            <p>I am a description</p>
+            <h4>${tittle}</h4>
+            <p>${desc}</p>
         </div>
     </article>
         `);
+
+        
     });
-    
+
+    $('main').on('click', 'article', function () {
+        //alert('Hola');
+        var id = $(this).attr('data-key');
+        mainVid(id);
+    })
 
   
 }
